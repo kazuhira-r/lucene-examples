@@ -7,10 +7,10 @@ object KuromojiWithNeologd {
   def main(args: Array[String]): Unit = {
     val texts = Array(
       "すもももももももものうち",
-      "きゃりーぱみゅぱみゅ",
+      "きゃりーぱみゅぱみゅは、2012年に「つけまつける」でデビュー！",
       "日本経済新聞でモバゲーの記事を読んだ",
-      "くりーむしちゅー",
-      "艦隊これくしょん"
+      "くりぃむしちゅーは、上田晋也と有田哲平の2人からなる日本のお笑いコンビ",
+      "艦隊これくしょんは、角川ゲームスが開発し、DMM.comが配信しているブラウザゲーム"
     )
 
     val analyzer = new JapaneseAnalyzer
