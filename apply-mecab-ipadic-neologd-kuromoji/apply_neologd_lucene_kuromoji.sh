@@ -67,6 +67,7 @@ DIR=`pwd`
 
 NEOLOGD_BUILD_DIR=`find ${DIR}/build/mecab-ipadic-* -maxdepth 1 -type d`
 NEOLOGD_DIRNAME=`basename ${NEOLOGD_BUILD_DIR}`
+NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 
 cd ${WORK_DIR}
 
@@ -103,7 +104,7 @@ fi
 echo '##### Build Lucene Kuromoji, with mecab-ipadic-NEologd #####'
 cp -Rp ${NEOLOGD_BUILD_DIR} ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji
 
-perl -wp -i.bak -e "s!mecab-ipadic-[.a-zA-Z0-9\-]+!${NEOLOGD_DIRNAME}!" build.xml
+perl -wp -i -e "s!mecab-ipadic-[.a-zA-Z0-9\-]+!${NEOLOGD_DIRNAME}!" build.xml
 perl -wp -i -e 's!name="dict.encoding" value="[^"]+"!name="dict.encoding" value="utf-8"!' build.xml
 perl -wp -i -e 's!, download-dict!!' build.xml
 perl -wp -i -e 's!maxmemory="[^"]+"!maxmemory="2g"!' build.xml
@@ -121,6 +122,9 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ${WORK_DIR}
+
+JAR_PATH=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
+echo ${JAR_PATH} | perl -wp -e 's!((.+/)(lucene-analyzers-kuromoji-)([0-9.]+)-(.+))!mv $1 $2$3neologd-$4-NEOLOGD_VERSION_DATE-$5!' | perl -wp -e "s!NEOLOGD_VERSION_DATE!${NEOLOGD_VERSION_DATE}!" | perl -wn -e 'system($_)'
 
 cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
 
