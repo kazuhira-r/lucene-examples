@@ -124,7 +124,7 @@ fi
 cd ${WORK_DIR}
 
 JAR_PATH=`ls -1 ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji*`
-echo ${JAR_PATH} | perl -wp -e 's!((.+/)(lucene-analyzers-kuromoji-)([0-9.]+)-(.+))!mv $1 $2$3neologd-$4-NEOLOGD_VERSION_DATE-$5!' | perl -wp -e "s!NEOLOGD_VERSION_DATE!${NEOLOGD_VERSION_DATE}!" | perl -wn -e 'system($_)'
+echo ${JAR_PATH} | perl -wp -e 's!((.+/)(lucene-analyzers-kuromoji)-([0-9.]+)-(.+))!mv $1 $2$3-ipadic-neologd-$4-NEOLOGD_VERSION_DATE-$5!' | perl -wp -e "s!NEOLOGD_VERSION_DATE!${NEOLOGD_VERSION_DATE}!" | perl -wn -e 'system($_)'
 
 cp ${LUCENE_SRC_DIR}/lucene/build/analysis/kuromoji/lucene-analyzers-kuromoji* ./.
 
