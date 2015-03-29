@@ -2,16 +2,16 @@ name := "lucene-basic-template"
 
 version := "0.0.1-SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.6"
 
 organization := "org.littlewings"
 
-scalacOptions ++= Seq("-deprecation")
+updateOptions := updateOptions.value.withCachedResolution(true)
 
-{
-val luceneVersion = "4.6.0"
+scalacOptions ++= Seq("-Xlint", "-unchecked", "-deprecation", "-feature")
+
+val luceneVersion = "5.0.0"
 libraryDependencies ++= Seq(
   "org.apache.lucene" % "lucene-queryparser" % luceneVersion,
   "org.apache.lucene" % "lucene-analyzers-kuromoji" % luceneVersion
 )
-}
