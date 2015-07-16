@@ -28,6 +28,6 @@ object KuromojiViterbi {
 
     val dotOutput = graphvizFormatter.finish()
 
-    "dot -Tgif" #< new ByteArrayInputStream(dotOutput.getBytes(StandardCharsets.UTF_8)) #> new File("out.gif") !!
+    "dot -Tgif" #< new ByteArrayInputStream(dotOutput.getBytes(StandardCharsets.UTF_8)) #> new File("out.gif") !
   }
 }
