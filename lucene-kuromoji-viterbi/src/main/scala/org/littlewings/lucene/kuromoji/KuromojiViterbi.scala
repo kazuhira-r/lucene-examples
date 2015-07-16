@@ -21,7 +21,7 @@ object KuromojiViterbi {
 
     tokenizer.reset()
 
-    Iterator.continually(tokenizer.incrementToken()).takeWhile(_ == true).foreach(_ => ())
+    Iterator.continually(tokenizer.incrementToken()).takeWhile(identity).foreach(_ => ())
 
     tokenizer.end()
     tokenizer.close()
