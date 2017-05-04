@@ -16,6 +16,8 @@ import org.apache.lucene.search._
 import org.apache.lucene.store.{Directory, RAMDirectory}
 import org.scalatest.{FunSuite, Matchers}
 
+import scala.collection.JavaConverters._
+
 class FlexibleQueryParserSpec extends FunSuite with Matchers {
   val bookDocuments: Array[Document] = Array(
     createBookDocument("978-4774127804", "Apache Lucene 入門 ~Java・オープンソース・全文検索システムの構築", 2270),
@@ -136,6 +138,16 @@ class FlexibleQueryParserSpec extends FunSuite with Matchers {
       try {
         val queryParser = new StandardQueryParser(analyzer)
         queryParser
+          .setPointsConfigMap(Map("price" -> new PointsConfig(new DecimalFormat("###"), classOf[Integer])).asJava)
+
+        /*
+        queryParser
+          .getQueryConfigHandler
+          .set(ConfigurationKeys.POINTS_CONFIG_MAP, Map("price" -> new PointsConfig(new DecimalFormat("###"), classOf[Integer])).asJava)
+          */
+
+        /*
+        queryParser
           .getQueryConfigHandler
           .addFieldConfigListener(fieldConfig =>
             if (fieldConfig.getField == "price") {
@@ -145,6 +157,7 @@ class FlexibleQueryParserSpec extends FunSuite with Matchers {
               )
             }
           )
+          */
         val query = queryParser.parse("price: [2000 TO 3000]", "isbn")
         val topDocs = indexSearcher.search(query, 3, new Sort(new SortField("price", SortField.Type.INT, true)))
 
