@@ -192,7 +192,7 @@ class KnnSearchTest {
     }
 
     @Test
-    void withQuery() throws IOException {
+    void withQueryAsFilter() throws IOException {
         try (Directory directory = new ByteBuffersDirectory()) {
             IndexWriterConfig config = new IndexWriterConfig();
 
