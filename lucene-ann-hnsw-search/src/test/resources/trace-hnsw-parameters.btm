@@ -1,0 +1,7 @@
+RULE print HNSW parameters
+CLASS org.apache.lucene.codecs.lucene99.Lucene99HnswVectorsWriter
+METHOD <init>
+AT ENTRY
+IF TRUE
+  DO traceln("m = " + $2 + ", beamWith = " + $3)
+ENDRULE

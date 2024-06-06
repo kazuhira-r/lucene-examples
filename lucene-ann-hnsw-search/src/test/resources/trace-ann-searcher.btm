@@ -1,0 +1,23 @@
+RULE print KnnCollector k value
+INTERFACE org.apache.lucene.search.KnnCollector
+METHOD k
+AT EXIT
+IF TRUE
+  DO traceln("KnnCollector#k = " + $!)
+ENDRULE
+
+RULE print RandomVectorScorer maxOrd value
+INTERFACE org.apache.lucene.util.hnsw.RandomVectorScorer
+METHOD maxOrd
+AT EXIT
+IF TRUE
+  DO traceln("RandomVectorScorer#maxOrd = " + $!)
+ENDRULE
+
+RULE print HnswGraphSearcher called
+CLASS org.apache.lucene.util.hnsw.HnswGraphSearcher
+METHOD search(org.apache.lucene.util.hnsw.RandomVectorScorer, org.apache.lucene.search.KnnCollector, org.apache.lucene.util.hnsw.HnswGraph, org.apache.lucene.util.hnsw.HnswGraphSearcher, org.apache.lucene.util.Bits)
+AT ENTRY
+IF TRUE
+  DO traceln("execute ANN(HNSW) HnswGraphSearcher#search")
+ENDRULE
